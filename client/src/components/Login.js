@@ -1,5 +1,6 @@
-import React from "react";
-import axios from "axios";
+import React, { useState } from "react";
+import { axiosWithAuth } from "./axios/axiosWithAuth";
+import { useHistory } from "react-router-dom";
 import {
   InputGroup,
   InputGroupAddon,
@@ -8,82 +9,82 @@ import {
   Button,
 } from "reactstrap";
 
-class LogIn extends React.Component {
-  state = {
-    credentials: {
-      username: "",
-      password: "",
-    },
-  };
+const Login = () => {
+  // make a post request to retrieve a token from the api
+  // when you have handled the token, navigate to the BubblePage route
+  const cred = { username: "", password: "" };
+  const [state, setState] = useState(cred);
+  const { push } = useHistory();
 
-  handleChange = (e) => {
-    this.setState({
-      credentials: {
-        ...this.state.credentials,
-        [e.target.name]: e.target.value,
-      },
+  const handleChange = (e) => {
+    e.persist();
+
+    setState({
+      ...state,
+      [e.target.name]: e.target.value,
     });
   };
 
-  logIn = (e) => {
+  const login = (e) => {
     e.preventDefault();
-    axios
-      .post("http://localhost:5000/api/login", this.state.credentials)
 
-      .then((response) => {
-        console.log("Credentials", response);
-        localStorage.setItem("token", response.data.payload);
-        this.props.history.push("/colors");
+    axiosWithAuth()
+      .post("http://localhost:5000/api/login", state)
+      .then((res) => {
+        console.log("POST response: ", res);
+        localStorage.setItem("token", res.data.payload);
+
+        push("/protected");
       })
-      .catch();
+      .catch((err) => {
+        console.log(err);
+        const error = document.querySelector(".error");
+        error.textContent = "Incorrect Login";
+      });
   };
 
-  componentDidMount() {
-    localStorage.clear();
-  }
-
-  render() {
-    return (
+  return (
+    <div>
+      {" "}
       <div className="container">
-        <h1 className="nav1">Login</h1>
-        <form onSubmit={this.logIn}>
-          <div className="input">
-            <InputGroup>
-              <InputGroupAddon addonType="prepend">
-                <InputGroupText>Username</InputGroupText>
-              </InputGroupAddon>
-              <Input
-                type="text"
-                name="username"
-                value={this.state.credentials.username}
-                onChange={this.handleChange}
-              />
-            </InputGroup>
-          </div>
+        <form onSubmit={login} className="form">
+          <h1>Log In</h1>
           <br />
-          <div className="input">
-            {" "}
-            <InputGroup>
-              <InputGroupAddon addonType="prepend">
-                <InputGroupText>Password</InputGroupText>
-              </InputGroupAddon>
-              <Input
-                type="password"
-                name="password"
-                value={this.state.credentials.password}
-                onChange={this.handleChange}
-              />
-            </InputGroup>
-          </div>
+          <InputGroup>
+            <InputGroupAddon addonType="prepend">
+              <InputGroupText>Username</InputGroupText>
+            </InputGroupAddon>
+            <Input
+              type="text"
+              name="username"
+              value={state.username}
+              onChange={handleChange}
+              placeholder="username"
+            />
+          </InputGroup>
           <br />
-          {/* username: 'Lambda School', password: 'i<3Lambd4' */}
+          <InputGroup>
+            <InputGroupAddon addonType="prepend">
+              <InputGroupText>Password</InputGroupText>
+            </InputGroupAddon>
+            <Input
+              type="password"
+              name="password"
+              value={state.password}
+              onChange={handleChange}
+              placeholder="password"
+            />
+          </InputGroup>
+          <br />
           <Button color="secondary" size="sm">
             Log In
           </Button>
+
+          <span className="error"></span>
         </form>
       </div>
-    );
-  }
-}
+    </div>
+  );
+};
 
-export default LogIn;
+export default Login;

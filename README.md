@@ -28,13 +28,22 @@ Be prepared to demonstrate your understanding of this week's concepts by answeri
 
 1. Explain what a token is used for.
 
-tokens are used by the server in form of a scriptic text stored locally or in a session storage mainly used for authentication, for example, when an user is trying to log in. It can also be used for data transferring.
+<!-- tokens are used by the server in form of a scriptic text stored locally or in a session storage mainly used for authentication, for example, when an user is trying to log in. It can also be used for data transferring. -->
 
 2. What steps can you take in your web apps to keep your data secure?
 
-3) Describe how web servers work.
+<!-- create a protected route with a token that will only be accessed by passing authentication. -->
+
+3. Describe how web servers work.
+
+<!-- The term “web server” is a computer that stores the code/data for a website or a program that runs on the computer. A web server retrieves and translates the data to the users upon request. -->
 
 4. Which HTTP methods can be mapped to the CRUD acronym that we use when interfacing with APIs/Servers.
+
+<!-- Create - POST
+Read - GET
+Update - PUT
+Delete - DELETE -->
 
 You are expected to be able to answer questions in these areas. Your responses contribute to your Sprint Challenge grade.
 
@@ -72,9 +81,9 @@ Build a login form to authenticate your users.
 
 #### Stage 2 - Consuming the API
 
-- [ ] When `BubblePages` renders, make a GET request to fetch the color data for your bubbles.
-- [ ] In `ColorList.js`, complete the `saveEdit` and `deleteColor` functions to make AJAX requests to the API to edit/delete data
-- [ ] Watch and enjoy as your app responds to updates in the data. Check out `Bubbles.js` to see how this is built.
+- [x] When `BubblePages` renders, make a GET request to fetch the color data for your bubbles.
+- [x] In `ColorList.js`, complete the `saveEdit` and `deleteColor` functions to make AJAX requests to the API to edit/delete data
+- [x] Watch and enjoy as your app responds to updates in the data. Check out `Bubbles.js` to see how this is built.
 
 #### API Documentation
 

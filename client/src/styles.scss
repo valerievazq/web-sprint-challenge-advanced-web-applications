@@ -10,6 +10,11 @@ body,
   padding: 0;
 }
 
+.form {
+  text-align: center;
+  padding: 70px;
+}
+
 .App {
   font-family: "Montserrat", sans-serif;
   text-align: center;
@@ -28,12 +33,24 @@ body,
   margin: 0 auto;
   display: flex;
   flex-direction: column;
+  margin-top: 10%;
+  font-size: larger;
+  font-weight: bolder;
+  letter-spacing: 1em;
 }
 
 .colors-wrap {
   height: 100%;
   width: 300px;
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+  margin-top: 5%;
+  margin-left: 30px;
+
+  p {
+    letter-spacing: 0.8em;
+    font-size: larger;
+    font-weight: bolder;
+  }
 
   ul {
     list-style: none;
